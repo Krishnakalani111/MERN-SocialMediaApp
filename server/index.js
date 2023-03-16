@@ -13,8 +13,10 @@ const path = require("path");
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL, {}).then(()=>console.log("Connected to MongoDB"));
- app.use("/images", express.static(path.join(__dirname, "public/images")));
+mongoose
+  .connect(process.env.MONGO_URL, {})
+  .then(() => console.log("Connected to MongoDB"));
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 //middleware
 app.use(express.json());
@@ -25,8 +27,9 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/images");
   },
-  getFilename: (req, file, cb) => {
-    cb(null, req.body.name);
+  filename: (req, file, cb) => {
+    const fileName = req.body.name + path.extname(file.originalname);
+    cb(null, fileName);
   },
 });
 
