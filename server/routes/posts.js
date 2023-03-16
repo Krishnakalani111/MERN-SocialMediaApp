@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
+const CustomError = require("../helpers/customErrorClass");
 
 //create a post
 
@@ -22,10 +23,10 @@ router.put("/:id", async (req, res) => {
       await post.updateOne({ $set: req.body });
       res.status(200).json("the post has been updated");
     } else {
-      res.status(403).json("you can update only your post");
+      throw new CustomError("You can update only your post", 403);
     }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(err.code || 500).json(err.message);
   }
 });
 //delete a post
@@ -37,10 +38,10 @@ router.delete("/:id", async (req, res) => {
       await post.deleteOne();
       res.status(200).json("the post has been deleted");
     } else {
-      res.status(403).json("you can delete only your post");
+      throw new CustomError("You can delete only your post", 403);
     }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(err.code || 500).json(err.message);
   }
 });
 //like / dislike a post
