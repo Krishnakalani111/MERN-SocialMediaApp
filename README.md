@@ -1,5 +1,8 @@
 # MERN-SocialMediaApp
 
+For starting the project, there are 2 folders- client and server side. 
+In client folder, there is react app. Before starting the app, start the server by commands- npm i- which would install the necessary dependencies and then use the command- npm start- to run the server on local machine.
+
 The procedure i followed for making the project was 
 1) CREATING THE API (EXPRESS , MONGO-DB)
 2) TESTING THE API (POSTMAN)
